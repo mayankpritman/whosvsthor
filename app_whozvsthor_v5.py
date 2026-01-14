@@ -45,13 +45,13 @@ st.markdown(
 
 with st.sidebar:
     st.header("Database Connection")
-    server = st.text_input("SQL Server", os.getenv("AZURE_SQL_SERVER"))
-    database = st.text_input("Database", os.getenv("AZURE_SQL_DATABASE", ""))
-    username = st.text_input("User", os.getenv("AZURE_SQL_USERNAME", ""), key="u")
-    password = st.text_input("Password", os.getenv("AZURE_SQL_PASSWORD", ""), type="password")
-    odbc_driver = st.text_input("ODBC Driver", os.getenv("MSSQL_ODBC_DRIVER", "ODBC Driver 17 for SQL Server"))
+    server = st.text_input("SQL Server","inventportaldb.database.windows.net")
+    database = st.text_input("Database", "portaldb")
+    username = st.text_input("User", "inventportaladmin")
+    password = st.text_input("Password","Portal@123")
+    odbc_driver = st.text_input("ODBC Driver", "ODBC Driver 17 for SQL Server")
     trust_cert = st.checkbox("Trust server certificate", value=True)
-    max_rows = st.number_input("Max rows (preview)", min_value=1, max_value=200000, value=200000, step=50)
+    max_rows = st.number_input("Max rows (preview)", min_value=1, max_value=2000000, value=2000000, step=50)
 
     st.divider()
     st.header("Rule Parameters")
@@ -699,3 +699,4 @@ if st.button("🔎 Check Discrepancy ", use_container_width=True):
     )
 else:
     st.info("Fill DB details in the sidebar and click **Explore (Pandas parses dates)**.")
+
