@@ -684,7 +684,7 @@ if st.button("🔎 Check Discrepancy ", use_container_width=True):
     # Enrich after comparison
     df_enriched = enrich_with_owner_email(df, engine, dossier_col="DOSSIER_EXTERNAL_ID")
 
-    st.subheader("Discrepancy Table (red = discrepancy)")
+    st.subheader("Discrepancy Table")
     # If you want scrollable, use st.dataframe(df_enriched); st.write works fine too
     st.write(df_enriched, unsafe_allow_html=True)
 
@@ -699,5 +699,6 @@ if st.button("🔎 Check Discrepancy ", use_container_width=True):
     )
 else:
     st.info("Fill DB details in the sidebar and click **Explore (Pandas parses dates)**.")
+
 
 
