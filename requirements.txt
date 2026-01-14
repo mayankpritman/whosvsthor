@@ -1,4 +1,9 @@
-pandas
-streamlit
-python-dotenv
 SQLAlchemy
+streamlit>=1.32.0
+pandas>=2.1.0
+psycopg2-binary>=2.9.9
+python-dotenv>=1.0.1
+openai>=1.40.0
+sqlparse>=0.5.1
+azure-search-documents>=11.6.0
+pyodbc>=5.1.0
