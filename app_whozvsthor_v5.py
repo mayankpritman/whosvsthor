@@ -171,7 +171,7 @@ def build_sales_rbac_filter(rbac_df: pd.DataFrame, user_email: str) -> Tuple[str
     st.subheader(f"CU/Ind: {l0_l}")
     l1 = str(rbac_df.loc[0, "L1"] or "").strip()
     # Decide if Industry vs Capability based on your rule
-    is_industry = ("industry" in l0_l)
+    is_industry = ("industry" in l0_l) and ("intelligent industry" not in l0_l)
     print(is_industry)
     # Consider role check as you asked (CU / Ind. Lead)
     # (If you want strictly role-based gating, keep this)
@@ -190,6 +190,16 @@ def build_sales_rbac_filter(rbac_df: pd.DataFrame, user_email: str) -> Tuple[str
         if "industry manufacturing & auto" in l0_l:
             return " AND NA_sector = :na_sector ", {"na_sector": "Auto",
                                                     "na_sector": "Manufacturing"}, "Industry Manufacturing & Auto -> NA_sector in (Manufacturing, Auto)"
+        if "industry cprd" in l0_l:
+            return " AND NA_sector = :na_sector ", {"na_sector": "Retail",
+                                                    "na_sector": "Services/Hospitality","na_sector": "Gov't/Public",
+                                                    "na_sector": "Consumer Products"}, "Industry CPRD -> NA_sector in (Retail, Services/Hospitality,Gov't/Public,Consumer Products)"
+        if "industry tmt & et&u" in l0_l:
+            return " AND NA_sector = :na_sector ", {"na_sector": "Tech",
+                                                    "na_sector": "R&ET","na_sector": "Telco",
+                                                    "na_sector": "M&E"}, "Industry TMT & ET&U -> NA_sector in (Tech,R&ET,Telco,M&E)"
+        if "Industry A&D" in l0_l:
+            return " AND NA_sector = :na_sector ", {"na_sector": "A&D"}, "Industry A&D -> NA_sector=A&D"
         # fallback: try to take token after word 'industry'
         tokens = l0.replace("-", " ").split()
         idx = None
@@ -212,7 +222,8 @@ def build_sales_rbac_filter(rbac_df: pd.DataFrame, user_email: str) -> Tuple[str
             "frog customer first": "frog",
             "Intelligent Industry": "Intelligent Industry",
             "Enterprise Transformation": "ET",
-            "Workforce & Organization": "W&O"
+            "Workforce & Organization": "W&O",
+            "Intelligent Industry": "Intelligent Industry"
 
         }
         for k, v in cap_map.items():
@@ -699,6 +710,7 @@ if st.button("🔎 Check Discrepancy ", use_container_width=True):
     )
 else:
     st.info("Fill DB details in the sidebar and click **Explore (Pandas parses dates)**.")
+
 
 
 
