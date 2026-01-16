@@ -638,7 +638,7 @@ def enrich_with_owner_email(
 
 mail_variable = st.text_input(
     "Email (Whoz/Thor filter)",
-    value="tom-xyz@gmail.com",  # default value (optional)
+    value="Enter your Email ID here",  # default value (optional)
     placeholder="name@example.com",
     key="mail_input"
 ).strip()
@@ -709,6 +709,7 @@ if st.button("🔎 Check Discrepancy ", use_container_width=True):
     )
 else:
     st.info("Fill DB details in the sidebar and click **Explore (Pandas parses dates)**.")
+
 
 
 
