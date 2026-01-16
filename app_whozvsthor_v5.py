@@ -222,8 +222,7 @@ def build_sales_rbac_filter(rbac_df: pd.DataFrame, user_email: str) -> Tuple[str
             "frog customer first": "frog",
             "Intelligent Industry": "Intelligent Industry",
             "Enterprise Transformation": "ET",
-            "Workforce & Organization": "W&O",
-            "Intelligent Industry": "Intelligent Industry"
+            "Workforce & Organization": "W&O"
 
         }
         for k, v in cap_map.items():
@@ -710,6 +709,7 @@ if st.button("🔎 Check Discrepancy ", use_container_width=True):
     )
 else:
     st.info("Fill DB details in the sidebar and click **Explore (Pandas parses dates)**.")
+
 
 
 
