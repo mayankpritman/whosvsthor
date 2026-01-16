@@ -188,16 +188,21 @@ def build_sales_rbac_filter(rbac_df: pd.DataFrame, user_email: str) -> Tuple[str
         if "industry fs" in l0_l:
             return " AND NA_sector = :na_sector ", {"na_sector": "FS"}, "Industry FS -> NA_sector=FS"
         if "industry manufacturing & auto" in l0_l:
-            return " AND NA_sector = :na_sector ", {"na_sector": "Auto",
-                                                    "na_sector": "Manufacturing"}, "Industry Manufacturing & Auto -> NA_sector in (Manufacturing, Auto)"
+            #return " AND NA_sector = :na_sector ", {"na_sector": "Auto",
+            #                                        "na_sector": "Manufacturing"}, "Industry Manufacturing & Auto -> NA_sector in (Manufacturing, Auto)"
+            return "AND NA_sector IN ('Auto','Manufacturing')", {}, 'Industry CPRD'
         if "industry cprd" in l0_l:
-            return " AND NA_sector = :na_sector ", {"na_sector": "Retail",
-                                                    "na_sector": "Services/Hospitality","na_sector": "Gov't/Public",
-                                                    "na_sector": "Consumer Products"}, "Industry CPRD -> NA_sector in (Retail, Services/Hospitality,Gov't/Public,Consumer Products)"
+            #return " AND NA_sector = :na_sector ", {"na_sector": "Retail",
+            #                                        "na_sector": "Services/Hospitality",
+            #                                        "na_sector": "Gov't/Public",
+            #                                        "na_sector": "Retail"}, "Industry CPRD -> NA_sector in (Retail, Services/Hospitality,Gov't/Public,Retail)"
+            return "AND NA_sector IN ('Retail','Services/Hospitality','Gov''t/Public','Consumer Products')", {}, 'Industry CPRD'
+
         if "industry tmt & et&u" in l0_l:
-            return " AND NA_sector = :na_sector ", {"na_sector": "Tech",
-                                                    "na_sector": "R&ET","na_sector": "Telco",
-                                                    "na_sector": "M&E"}, "Industry TMT & ET&U -> NA_sector in (Tech,R&ET,Telco,M&E)"
+            #return " AND NA_sector = :na_sector ", {"na_sector": "Tech",
+             #                                       "na_sector": "R&ET","na_sector": "Telco",
+             #                                       "na_sector": "M&E"}, "Industry TMT & ET&U -> NA_sector in (Tech,R&ET,Telco,M&E)"
+            return "AND NA_sector IN ('Tech','R&ET','Telco','M&E')", {}, 'Industry CPRD'
         if "Industry A&D" in l0_l:
             return " AND NA_sector = :na_sector ", {"na_sector": "A&D"}, "Industry A&D -> NA_sector=A&D"
         # fallback: try to take token after word 'industry'
@@ -709,6 +714,7 @@ if st.button("🔎 Check Discrepancy ", use_container_width=True):
     )
 else:
     st.info("Fill DB details in the sidebar and click **Explore (Pandas parses dates)**.")
+
 
 
 
